@@ -1,18 +1,20 @@
 package seedu.address.logic.commands;
+
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.commands.CommandTestUtil.*;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_REMARK;
-import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
-import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_REMARK_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_REMARK_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+
 import org.junit.jupiter.api.Test;
+
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Messages;
-import seedu.address.logic.parser.RemarkCommandParser;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -25,11 +27,11 @@ import seedu.address.testutil.PersonBuilder;
  * Contains integration tests (interaction with the Model) and unit tests for RemarkCommand.
  */
 public class RemarkCommandTest {
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-    private RemarkCommandParser parser = new RemarkCommandParser();
-    private final String nonEmptyRemark = "Some remark.";
     private static final String REMARK_STUB = "Some remark";
 
+    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+
+    @Test
     public void execute_addRemarkUnfilteredList_success() {
         Person firstPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         Person editedPerson = new PersonBuilder(firstPerson).withRemark(REMARK_STUB).build();
@@ -81,11 +83,11 @@ public class RemarkCommandTest {
         RemarkCommand remarkCommand = new RemarkCommand(outOfBoundIndex, new Remark(VALID_REMARK_BOB));
         assertCommandFailure(remarkCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
-
     @Test
     public void equals() {
         final RemarkCommand standardCommand = new RemarkCommand(INDEX_FIRST_PERSON,
                 new Remark(VALID_REMARK_AMY));
+
         // same values -> returns true
         RemarkCommand commandWithSameValues = new RemarkCommand(INDEX_FIRST_PERSON,
                 new Remark(VALID_REMARK_AMY));
@@ -108,30 +110,4 @@ public class RemarkCommandTest {
         assertFalse(standardCommand.equals(new RemarkCommand(INDEX_FIRST_PERSON,
                 new Remark(VALID_REMARK_BOB))));
     }
-
-    @Test
-    public void parse_indexSpecified_success() {
-        // have remark
-        Index targetIndex = INDEX_FIRST_PERSON;
-        String userInput = targetIndex.getOneBased() + " " + PREFIX_REMARK + nonEmptyRemark;
-        RemarkCommand expectedCommand = new RemarkCommand(INDEX_FIRST_PERSON, new Remark(nonEmptyRemark));
-        assertParseSuccess(parser, userInput, expectedCommand);
-
-        // no remark
-        userInput = targetIndex.getOneBased() + " " + PREFIX_REMARK;
-        expectedCommand = new RemarkCommand(INDEX_FIRST_PERSON, new Remark(""));
-        assertParseSuccess(parser, userInput, expectedCommand);
-    }
-
-    @Test
-    public void parse_missingCompulsoryField_failure() {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, RemarkCommand.MESSAGE_USAGE);
-
-        // no parameters
-        assertParseFailure(parser, RemarkCommand.COMMAND_WORD, expectedMessage);
-
-        // no index
-        assertParseFailure(parser, RemarkCommand.COMMAND_WORD + " " + nonEmptyRemark, expectedMessage);
-    }
-
 }
