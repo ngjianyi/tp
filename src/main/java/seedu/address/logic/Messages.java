@@ -73,7 +73,7 @@ public class Messages {
                 .append("; Date & time: ")
                 .append(delivery.getDeliveryDate())
                 .append("; Product: ")
-                .append(delivery.getDeliveryProduct())
+                .append(delivery.getDeliveryProduct().toPlainString())
                 .append("; Quantity: ")
                 .append(delivery.getDeliveryQuantity())
                 .append("; Cost: ")

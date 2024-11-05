@@ -32,6 +32,10 @@ public class Product {
         return test.matches(VALIDATION_REGEX);
     }
 
+    public String toPlainString() {
+        return productName;
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -56,7 +60,7 @@ public class Product {
      * Format state as text for viewing.
      */
     public String toString() {
-        return productName;
+        return "[" + productName + "]";
     }
 
 }

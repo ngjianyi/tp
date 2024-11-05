@@ -23,7 +23,7 @@ public class JsonAdaptedDeliveryTest {
     private static final String INVALID_TIME = "1-1-1 10:00";
     private static final String INVALID_COST = "100.";
     private static final String INVALID_QUANTITY = "500 PCS";
-    private static final String VALID_PRODUCT = BREAD.getDeliveryProduct().toString();
+    private static final String VALID_PRODUCT = BREAD.getDeliveryProduct().toPlainString();
     private static final JsonAdaptedSupplier VALID_SENDER = new JsonAdaptedSupplier(CARL);
     private static final String VALID_TIME = APPLE.getDeliveryDate().toString();
     private static final String VALID_COST = APPLE.getDeliveryCost().toString();

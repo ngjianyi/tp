@@ -33,7 +33,7 @@ public class DeliveryProductPredicate implements Predicate<Delivery> {
 
     @Override
     public String toString() {
-        return this.getClass().getName() + "{targetProduct=" + targetProduct.toString() + "}";
+        return this.getClass().getName() + "{targetProduct=" + targetProduct.toPlainString() + "}";
     }
 }
 

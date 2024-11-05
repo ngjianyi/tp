@@ -153,7 +153,7 @@ public class Delivery {
     @Override
     public String toString() {
         return new ToStringBuilder(this)
-                .add("product", product)
+                .add("product", product.toPlainString())
                 .add("sender", sender)
                 .add("status", status)
                 .add("deliveryDate", deliveryDateTime)
