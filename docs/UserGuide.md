@@ -323,12 +323,12 @@ To find deliveries of product "milk" on "28-06-2025 17:00" :
 The `sort -d` command is used to sort deliveries in VendorVault.
 This helps you to view the deliveries in a different order, based on the delivery cost, date or status.
 
-Format: `sort -d so/SORT_ORDER sb/SORT_BY_FIELD`
+Format: `sort -d so/SORT_ORDER sb/SORT_BY`
 
 Parameters:
 
 - SORT_ORDER: Must be either 'a' for ascending or 'd' for descending, and must not be blank.
-- SORT_BY_FIELD: Must be either 'c' for cost, 'd' for date or 's' for status, and must not be blank.
+- SORT_BY: Must be either 'c' for cost, 'd' for date or 's' for status, and must not be blank.
 
 <box type="tip" seamless>
 
